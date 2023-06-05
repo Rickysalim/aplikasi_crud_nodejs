@@ -5,7 +5,9 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class products extends Model {
         static associate(models) {
-
+            models.products.belongsTo(models.users, {
+                foreignKey: "users_id"
+            })
         }
     }
     products.init({
@@ -14,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
+        },
+        gambar: {
+            type: DataTypes.STRING,
         },
         nama_produk: {
             type: DataTypes.STRING,
@@ -26,6 +31,13 @@ module.exports = (sequelize, DataTypes) => {
         jumlah: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        users_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: "users",
+                key: "id",
+            }
         }
     }, {
         sequelize,

@@ -2,7 +2,7 @@
   "development": {
     "username": "postgres",
     "password": "postgres",
-    "database": "pijarcamp",
+    "database": "basic_crud",
     "host": "127.0.0.1",
     "dialect": "postgres"
   }

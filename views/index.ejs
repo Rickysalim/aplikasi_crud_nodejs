@@ -1,167 +1,199 @@
 <%- include('partials/header'); %>
+
     <body>
         <%- include('partials/navbar'); %>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-success mt-4" data-bs-toggle="modal" data-bs-target="#stock">
-                <i class="bi bi-plus-square"></i>
-            </button>
+            <% if (role === "1") { %>
+                <div></div>
+                <% } else { %>
+                    <button type="button" class="btn btn-success mt-4" data-bs-toggle="modal" data-bs-target="#stock">
+                        <i class="bi bi-plus-square"></i>
+                    </button>
+                    <% } %>
 
-
-            <!-- Modal -->
-            <div class="modal fade" id="stock" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">CREATE</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="POST" action="/product">
-                                <div class="mb-3">
-                                    <label for="nama_produk" class="form-label">nama_produk: </label>
-                                    <input name="nama_produk" type="text" class="form-control">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="keterangan" class="form-label">keterangan:</label>
-                                    <textarea name="keterangan" class="form-control"></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="jumlah" class="form-label">jumlah: </label>
-                                    <input name="jumlah" type="number" class="form-control" min="0">
-                                </div>
-                                <button type="submit" class="btn btn-success"><i class="bi bi-save"></i></button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <table class="table table-striped table-bordered mt-4" style="width:100%">
-                <thead>
-                    <tr>
-                        <th>NO</th>
-                        <th>NAMA PRODUK</th>
-                        <th>KETERANGAN</th>
-                        <th>JUMLAH</th>
-                        <th>CREATED_AT</th>
-                        <th>UPDATED_AT</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% data.forEach((result, index)=> { %>
-                        <tr>
-                            <td>
-                                <%= index + 1 %>
-                            </td>
-                            <td>
-                                <%= result.nama_produk %>
-                            </td>
-                            <td>
-                                <%= result.keterangan %>
-                            </td>
-                            <td>
-                                <%= result.jumlah %>
-                            </td>
-                            <td>
-                                <%= result.createdAt %>
-                            </td>
-                            <td>
-                                <%= result.updatedAt %>
-                            </td>
-                            <td>
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                                    data-bs-target="#stockedit<%= result.id %>">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="stockedit<%= result.id %>" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">UPDATE</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="stock" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">CREATE</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST" action="/product" enctype="multipart/form-data">
+                                            <div class="mb-3">
+                                                <label for="gambar" class="form-label">gambar: </label>
+                                                <input name="gambar" type="file" class="form-control">
                                             </div>
-                                            <div class="modal-body">
-                                                <form method="POST" action="/product/<%= result.id %>">
-                                                    <input type="hidden" value="<%= result.id %>">
-                                                    <div class="mb-3">
-                                                        <label for="nama_produk" class="form-label">nama_produk: </label>
-                                                        <input name="nama_produk" type="text" class="form-control"
-                                                            value="<%= result.nama_produk %>">
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="keterangan" class="form-label">keterangan:</label>
-                                                        <textarea name="keterangan" class="form-control"><%= result.keterangan %></textarea>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="jumlah" class="form-label">jumlah: </label>
-                                                        <input name="jumlah" type="number" class="form-control" min="0" value="<%= result.jumlah %>">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-warning"><i
-                                                            class="bi bi-pencil-square"></i></button>
-                                                </form>
+                                            <div class="mb-3">
+                                                <label for="nama_produk" class="form-label">nama_produk: </label>
+                                                <input name="nama_produk" type="text" class="form-control">
                                             </div>
-                                            <div class="modal-footer">
+                                            <div class="mb-3">
+                                                <label for="keterangan" class="form-label">keterangan:</label>
+                                                <textarea name="keterangan" class="form-control"></textarea>
                                             </div>
-                                        </div>
+                                            <div class="mb-3">
+                                                <label for="jumlah" class="form-label">jumlah: </label>
+                                                <input name="jumlah" type="number" class="form-control" min="0">
+                                            </div>
+                                            <button type="submit" class="btn btn-success"><i
+                                                    class="bi bi-save"></i></button>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
                                     </div>
                                 </div>
+                            </div>
+                        </div>
 
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#stockdelete<%= result.id %>">
-                                    <i class="bi bi-trash"></i>
-                                </button>
+                        <table class="table table-striped table-bordered mt-4" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>NO</th>
+                                    <th>GAMBAR</th>
+                                    <th>NAMA PRODUK</th>
+                                    <th>KETERANGAN</th>
+                                    <th>JUMLAH</th>
+                                    <th>CREATED_AT</th>
+                                    <th>UPDATED_AT</th>
+                                    <th>EMAIL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% data.forEach((result, index)=> { %>
+                                    <tr>
+                                        <td>
+                                            <%= index + 1 %>
+                                        </td>
+                                        <td>
+                                            <img src="/images/item/<%= result.gambar %>" width="100" height="100">
+                                        </td>
+                                        <td>
+                                            <%= result.nama_produk %>
+                                        </td>
+                                        <td>
+                                            <%= result.keterangan %>
+                                        </td>
+                                        <td>
+                                            <%= result.jumlah %>
+                                        </td>
+                                        <td>
+                                            <%= result.createdAt %>
+                                        </td>
+                                        <td>
+                                            <%= result.updatedAt %>
+                                        </td>
+                                        <td>
+                                            <%= result.user.email %>
+                                        </td>
+                                        <% if (result.user.role === "2") { %>
+                                            <td>
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                                                    data-bs-target="#stockedit<%= result.id %>">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
 
-                                <!-- Modal -->
-                                <div class="modal fade" id="stockdelete<%= result.id %>" tabindex="-1"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="GET" action="/product/<%= result.id %>">
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="stockedit<%= result.id %>" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">UPDATE
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form method="POST" action="/product/<%= result.id %>">
+                                                                    <input type="hidden" value="<%= result.id %>">
+                                                                    <div class="mb-3">
+                                                                        <label for="nama_produk"
+                                                                            class="form-label">nama_produk: </label>
+                                                                        <input name="nama_produk" type="text"
+                                                                            class="form-control"
+                                                                            value="<%= result.nama_produk %>">
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="keterangan"
+                                                                            class="form-label">keterangan:</label>
+                                                                        <textarea name="keterangan"
+                                                                            class="form-control"><%= result.keterangan %></textarea>
+                                                                    </div>
+                                                                    <div class="mb-3">
+                                                                        <label for="jumlah" class="form-label">jumlah:
+                                                                        </label>
+                                                                        <input name="jumlah" type="number"
+                                                                            class="form-control" min="0"
+                                                                            value="<%= result.jumlah %>">
+                                                                    </div>
+                                                                    <button type="submit" class="btn btn-warning"><i
+                                                                            class="bi bi-pencil-square"></i></button>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                                    <input type="hidden" value="<%= result.id %>">
-                                                    <br>
-                                                    <p>Ingin Menghapus <%= result.nama_produk %>
-                                                    </p>
-                                                    <br>
-                                                    <button type="submit" class="btn btn-danger"><i
-                                                            class="bi bi-trash"></i></button>
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#stockdelete<%= result.id %>">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
 
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="stockdelete<%= result.id %>" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">DELETE
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form method="GET" action="/product/<%= result.id %>">
 
-                            </td>
-                        </tr>
-                        <% }) %>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>ID</th>
-                        <th>NAMA PRODUK</th>
-                        <th>KETERANGAN</th>
-                        <th>JUMLAH</th>
-                        <th>CREATED_AT</th>
-                        <th>UPDATED_AT</th>
-                    </tr>
-                </tfoot>
-            </table>
+                                                                    <input type="hidden" value="<%= result.id %>">
+                                                                    <br>
+                                                                    <p>Ingin Menghapus <%= result.nama_produk %>
+                                                                    </p>
+                                                                    <br>
+                                                                    <button type="submit" class="btn btn-danger"><i
+                                                                            class="bi bi-trash"></i></button>
+
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                            <% } %>
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>NO</th>
+                                    <th>GAMBAR</th>
+                                    <th>NAMA PRODUK</th>
+                                    <th>KETERANGAN</th>
+                                    <th>JUMLAH</th>
+                                    <th>CREATED_AT</th>
+                                    <th>UPDATED_AT</th>
+                                    <th>EMAIL</th>
+                                </tr>
+                            </tfoot>
+                        </table>
     </body>
     <%- include('partials/footer'); %>
