@@ -1,1 +1,1 @@
-# ketik npm start di terminal 
+# aplikasi crud sederhana menggunakan node js 
