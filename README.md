@@ -1,1 +1,0 @@
-# ketik npm start di terminal 
